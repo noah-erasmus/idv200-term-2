@@ -9,7 +9,14 @@ import { TotalConfirmed } from './components/TotalConfirmed'
 function App() {
   return (
     <div className="App">
-      <TotalConfirmed />
+      <Grid>
+
+      <Grid lg={3} sm={6} xl={3} xs={12}>
+        <TotalConfirmed />
+      </Grid>
+
+      </Grid>
+      
     </div>
   );
 }
