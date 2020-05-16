@@ -4,12 +4,12 @@ import './App.css';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import PermanentDrawerLeft from './components/PermanentDrawerLeft'
-import { CovidTest } from './components/LaunchesPerYear'
+import { TotalConfirmed } from './components/TotalConfirmed'
 
 function App() {
   return (
     <div className="App">
-      <CovidTest />
+      <TotalConfirmed />
     </div>
   );
 }

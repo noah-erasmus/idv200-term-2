@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-export const CovidTest = () => {
-    const [test, setTest] = useState([])
+export const TotalConfirmed = () => {
+    const [api, setApi] = useState({})
+    const [otalConfirmed, setTotalConfirmed] = useState(0)
 
     useEffect(() => {
         console.log("This component rendered.")
@@ -10,18 +11,23 @@ export const CovidTest = () => {
             return response.json()
         })
         .then(data => {
+            setApi(data)
             console.log(data)
-            setTest(data)
-            console.log(test)
         })
         .catch(err => {
             console.log(`There was an error ${err}`)
         })
     }, [])
 
+    useEffect(() => {
+        const confirmedCases = Object.keys(api).map(key => ({...api[key], name:key}))   
+        console.log(confirmedCases)
+        
+    }, [api])
+
     return (
         <div style={{textAlign:"left"}}>
-            <pre>{JSON.stringify(test, null, 2)}</pre>
+            
         </div>
     )
 }
