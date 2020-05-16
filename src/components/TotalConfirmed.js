@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 export const TotalConfirmed = () => {
     const [api, setApi] = useState({})
-    const [otalConfirmed, setTotalConfirmed] = useState(0)
+    const [totalConfirmed, setTotalConfirmed] = useState(0)
 
     useEffect(() => {
         console.log("This component rendered.")
@@ -12,19 +12,18 @@ export const TotalConfirmed = () => {
         })
         .then(data => {
             setApi(data)
-            console.log(data)
         })
         .catch(err => {
             console.log(`There was an error ${err}`)
         })
     }, [])
 
-    useEffect(() => {
-        const confirmedCases = Object.keys(api).map(key => ({...api[key], name:key}))   
-        console.log(confirmedCases)
-        
-    }, [api])
+    const totalConfirmedCases = Object.entries(api)
+    .map(([country, data]) => [country, data.All.confirmed])
+    .reduce((acc, [country, total]) => acc + total, 0)
 
+    console.log(totalConfirmedCases)
+    
     return (
         <div style={{textAlign:"left"}}>
             
