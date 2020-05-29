@@ -9,10 +9,15 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-  }
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
 })
 
-export const TotalConfirmed = () => {
+export const TotalDeaths = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [api, setApi] = useState({})
@@ -20,35 +25,40 @@ export const TotalConfirmed = () => {
 
   useEffect(() => {
       console.log("This component rendered.")
-      fetch('https://api.covid19api.com/summary')
+      fetch('https://covid-api.mmediagroup.fr/v1/cases')
       .then(response => {
           return response.json()
       })
       .then(data => {
           setApi(data)
-          setTotalConfirmed(data.Global.TotalConfirmed)
-          
-
       })
       .catch(err => {
           console.log(`There was an error ${err}`)
       })
   }, [])
 
+  console.log(api)
+
+  const totalDeaths = Object.entries(api)
+  .map(([country, data]) => [country, data.All.deaths])
+  .reduce((acc, [country, total]) => acc + total, 0)
 
   return(
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Worldwide Confirmed Cases
+          Total Deaths
         </Typography>
         <Typography variant="h5" component="h2">
-          {totalConfirmed}
+          {totalDeaths}
         </Typography>
       </CardContent>
     </Card>
   )
 
-}
+  return(
+    <div>
 
- 
+    </div>
+  )
+}

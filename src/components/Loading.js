@@ -9,46 +9,28 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-  }
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
 })
 
-export const TotalConfirmed = () => {
+export const Loading = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const [api, setApi] = useState({})
-  const [totalConfirmed, setTotalConfirmed] = useState(0)
 
-  useEffect(() => {
-      console.log("This component rendered.")
-      fetch('https://api.covid19api.com/summary')
-      .then(response => {
-          return response.json()
-      })
-      .then(data => {
-          setApi(data)
-          setTotalConfirmed(data.Global.TotalConfirmed)
-          
-
-      })
-      .catch(err => {
-          console.log(`There was an error ${err}`)
-      })
-  }, [])
 
 
   return(
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Worldwide Confirmed Cases
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {totalConfirmed}
+          Loading...
         </Typography>
       </CardContent>
     </Card>
   )
 
 }
-
- 
