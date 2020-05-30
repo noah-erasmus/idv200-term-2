@@ -27,7 +27,7 @@ const defaultData = {
 }
 
 
-export const LocalCasesAndRecoveries = () => {
+export const CumulativeDeaths = () => {
     const classes = useStyles();
     const [lineData, setLineData] = useState(defaultData)
     const [totalConfirmed, setTotalConfirmed] = useState(0)
