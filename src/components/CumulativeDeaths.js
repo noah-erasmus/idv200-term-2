@@ -68,7 +68,7 @@ export const CumulativeDeaths = () => {
                   <Typography>Confirmed Cases</Typography>
                   <Typography>{totalConfirmed}</Typography>
                 </Grid>
-                <Grid item xl={10}>
+                <Grid item xl={9}>
                   <Line data={lineData}/>
                 </Grid>
               </Grid>

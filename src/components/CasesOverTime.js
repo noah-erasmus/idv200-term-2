@@ -11,6 +11,25 @@ const useStyles = makeStyles({
     }
 })
 
+const defaultOptions = {
+  scales: {
+    xAxes: [{
+      gridLines: {
+        drawOnChartArea: false
+      }
+    }],
+    yAxes: [{
+      gridLines: {
+        drawOnChartArea: false
+      }
+    }]
+  },
+  legend: {
+    position: 'bottom'
+  }
+  
+}
+
 const defaultData = {
   labels: ["one", 'Two', "three", "four", "five", 'six'],
   datasets: [
@@ -31,6 +50,7 @@ export const LocalCasesAndRecoveries = () => {
     const classes = useStyles();
     const [lineData, setLineData] = useState(defaultData)
     const [totalConfirmed, setTotalConfirmed] = useState(0)
+    const [chartOptions, setChartOptions] = useState(defaultOptions)
 
     useEffect(() => {
         console.log("This component rendered.")
@@ -56,6 +76,7 @@ export const LocalCasesAndRecoveries = () => {
             console.log(`There was an error ${err}`)
         })
         
+        
     }, [])
 
     return (
@@ -68,8 +89,8 @@ export const LocalCasesAndRecoveries = () => {
                   <Typography>Confirmed Cases</Typography>
                   <Typography>{totalConfirmed}</Typography>
                 </Grid>
-                <Grid item xl={10}>
-                  <Line data={lineData}/>
+                <Grid item xl={9}>
+                  <Line data={lineData} options={chartOptions}/>
                 </Grid>
               </Grid>
           
