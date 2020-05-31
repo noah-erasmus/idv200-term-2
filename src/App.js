@@ -30,6 +30,10 @@ function App() {
           <CaseBreakdown></CaseBreakdown>
         </Grid>
 
+        <Grid item>
+          <TotalConfirmed/>
+        </Grid>
+
       </Grid>
       
       

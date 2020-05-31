@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
+import { Loading } from './Loading';
 
 const useStyles = makeStyles({
   root: {
@@ -13,11 +14,16 @@ const useStyles = makeStyles({
   }
 })
 
+const countriesStyle = {
+  maxHeight: 300
+}
+
 export const TotalConfirmed = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [api, setApi] = useState({})
   const [totalConfirmed, setTotalConfirmed] = useState(0)
+  const [countries, setCountries] = useState([])
   const [percentageIncrease, setPercentageIncrease] = useState(0)
   const [percentageOperator, setPercentageOperator] = useState('+')
 
@@ -31,27 +37,38 @@ export const TotalConfirmed = () => {
           setApi(data)
           setTotalConfirmed(data.Global.TotalConfirmed)
           const percentage = (data.Global.NewConfirmed/data.Global.TotalConfirmed*100).toFixed(2)
-          
+
+          setCountries(data.Countries)
+
+          countries.sort((a,b) => a.TotalConfirmed - b.TotalConfirmed)
+
           setPercentageIncrease(percentage)
 
           if(percentage > 0){
-            percentageOperator = '+'
+            setPercentageOperator('+')
           }else{
-            percentageOperator = '-'
+            setPercentageOperator('-')
           }
+
+          console.log(countries)
           
 
       })
       .catch(err => {
           console.log(`There was an error ${err}`)
       })
+
+
   }, [])
+
 
 
   return(
     <Card className={classes.root} variant="outlined">
       <CardContent>
+
         <Grid container spacing={2}> 
+
           <Grid item>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
             Worldwide Confirmed Cases
@@ -60,6 +77,7 @@ export const TotalConfirmed = () => {
               {totalConfirmed}
             </Typography>
           </Grid>
+
           <Grid item>
             <Typography>
               {percentageOperator}{percentageIncrease}%
@@ -67,6 +85,20 @@ export const TotalConfirmed = () => {
             <Typography>
               from yesterday
             </Typography>
+          </Grid>
+
+        </Grid>
+
+        <Grid container style={countriesStyle}>
+          <Grid item>
+            
+            
+            <ul>
+              {countries ? countries.map((c, index) => 
+              <li key={index}>{c.TotalConfirmed}</li>) : <Loading/>}
+              {console.log(countries)}
+            </ul>
+            
           </Grid>
         </Grid>
       </CardContent>
