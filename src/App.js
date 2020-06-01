@@ -8,6 +8,7 @@ import { CumulativeDeaths } from './components/CumulativeDeaths'
 import { LocalCasesAndRecoveries } from './components/CasesOverTime'
 import { CaseBreakdown } from './components/CaseStatusBreakdown'
 import { DashBar } from './components/AppBar'
+import { CovidMap } from './components/Map'
 
 function App() {
   return (
@@ -30,8 +31,16 @@ function App() {
           <CaseBreakdown></CaseBreakdown>
         </Grid>
 
-        <Grid item>
+        <Grid item xl={6}>
           <TotalConfirmed/>
+        </Grid>
+
+      </Grid>
+
+      <Grid container xl={12}>
+        <Grid item>
+          <CovidMap/>
+
         </Grid>
 
       </Grid>

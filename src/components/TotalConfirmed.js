@@ -15,7 +15,10 @@ const useStyles = makeStyles({
 })
 
 const countriesStyle = {
-  maxHeight: 300
+  maxHeight: 300,
+  overflowY: 'auto',
+  listStyle: 'none'
+  
 }
 
 export const TotalConfirmed = () => {
@@ -38,9 +41,8 @@ export const TotalConfirmed = () => {
           setTotalConfirmed(data.Global.TotalConfirmed)
           const percentage = (data.Global.NewConfirmed/data.Global.TotalConfirmed*100).toFixed(2)
 
-          setCountries(data.Countries)
+          setCountries(data.Countries.sort((a,b) => b.TotalConfirmed - a.TotalConfirmed))
 
-          countries.sort((a,b) => a.TotalConfirmed - b.TotalConfirmed)
 
           setPercentageIncrease(percentage)
 
@@ -89,14 +91,24 @@ export const TotalConfirmed = () => {
 
         </Grid>
 
-        <Grid container style={countriesStyle}>
-          <Grid item>
+        <Grid container >
+          <Grid item xl={12}>
             
             
-            <ul>
+            <ul style={countriesStyle}>
               {countries ? countries.map((c, index) => 
-              <li key={index}>{c.TotalConfirmed}</li>) : <Loading/>}
-              {console.log(countries)}
+                <li key={index}>
+                  <Grid container spacing={2}>
+                    <Grid item xl={5}>
+                      {c.TotalConfirmed}
+
+                    </Grid>
+                    <Grid item xl={5}>
+                      {c.Country}
+
+                    </Grid>
+                  </Grid>
+                </li>) : <Loading/>}
             </ul>
             
           </Grid>
