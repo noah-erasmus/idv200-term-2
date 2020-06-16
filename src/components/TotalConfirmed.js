@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import { Loading } from './Loading';
 
 const useStyles = makeStyles({
@@ -15,11 +15,24 @@ const useStyles = makeStyles({
 })
 
 const countriesStyle = {
-  maxHeight: 700,
+  maxHeight: 600,
   overflowY: 'auto',
   overflowX: 'hidden',
   listStyle: 'none'
 
+}
+
+const countryBoxesStyle = {
+  float: 'left'
+}
+
+const totalStyle = {
+  marginLeft: '50px'
+}
+
+const percentageStyle = {
+  marginTop: '10px',
+  colour: 'red'
 }
 
 export const TotalConfirmed = () => {
@@ -71,15 +84,22 @@ export const TotalConfirmed = () => {
       <Grid container spacing={2}>
 
         <Grid item>
-          <Typography variant="h2" component="h2">
-            {totalConfirmed}
-          </Typography>
+          <Box color='#496CC4' style={totalStyle}>
+            <Typography variant="h2" component="h2">
+              {totalConfirmed}
+            </Typography>
+          </Box>
+
         </Grid>
 
         <Grid item>
-          <Typography>
-            {percentageOperator}{percentageIncrease}% from yesterday
-  </Typography>
+          <Box style={percentageStyle}>
+            <Typography variant='h5'>
+              {percentageOperator}{percentageIncrease}% from yesterday
+            </Typography>
+
+          </Box>
+
         </Grid>
 
       </Grid>
@@ -92,14 +112,18 @@ export const TotalConfirmed = () => {
             {countries ? countries.map((c, index) =>
               <li key={index}>
                 <Grid container spacing={2}>
-                  <Grid item xl={5}>
-                    {c.TotalConfirmed}
+                  <Grid item xl={12}>
+                    <Box fontSize={18} fontWeight='fontWeightBold' color='#496CC4' style={countryBoxesStyle}>
+                      {c.TotalConfirmed}
+                    </Box>
+                    <Box fontSize={16} style={countryBoxesStyle}>
+                      {c.Country}
+
+                    </Box>
+
 
                   </Grid>
-                  <Grid item xl={5}>
-                    {c.Country}
 
-                  </Grid>
                 </Grid>
               </li>) : <Loading />}
           </ul>

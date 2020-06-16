@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Paper, Card, CardContent } from '@material-ui/core';
 import { TotalConfirmed } from './components/TotalConfirmed'
 import { CumulativeDeaths } from './components/CumulativeDeaths'
-import { LocalCasesAndRecoveries } from './components/CasesOverTime'
+import { LocalCases } from './components/LocalCases'
 import { CaseBreakdown } from './components/CaseStatusBreakdown'
 import { CovidMap } from './components/CovidMap'
 import { DashBar } from './components/AppBar'
@@ -31,7 +31,7 @@ function App() {
             Worldwide Confirmed Cases
           </Typography>
           <Grid container spacing={10}>
-            <Grid item lg={3}>
+            <Grid item lg={4}>
               <TotalConfirmed></TotalConfirmed>
             </Grid>
             <Grid item lg={8}>
@@ -48,7 +48,7 @@ function App() {
           </Typography>
           <Grid container>
             <Grid item lg={6}>
-              <LocalCasesAndRecoveries></LocalCasesAndRecoveries>
+              <LocalCases></LocalCases>
             </Grid>
             <Grid item lg={6}>
               <CaseBreakdown></CaseBreakdown>
