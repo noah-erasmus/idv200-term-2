@@ -15,10 +15,11 @@ const useStyles = makeStyles({
 })
 
 const countriesStyle = {
-  maxHeight: 300,
+  maxHeight: 700,
   overflowY: 'auto',
+  overflowX: 'hidden',
   listStyle: 'none'
-  
+
 }
 
 export const TotalConfirmed = () => {
@@ -31,33 +32,33 @@ export const TotalConfirmed = () => {
   const [percentageOperator, setPercentageOperator] = useState('+')
 
   useEffect(() => {
-      console.log("This component rendered.")
-      fetch('https://api.covid19api.com/summary')
+    console.log("This component rendered.")
+    fetch('https://api.covid19api.com/summary')
       .then(response => {
-          return response.json()
+        return response.json()
       })
       .then(data => {
-          setApi(data)
-          setTotalConfirmed(data.Global.TotalConfirmed)
-          const percentage = (data.Global.NewConfirmed/data.Global.TotalConfirmed*100).toFixed(2)
+        setApi(data)
+        setTotalConfirmed(data.Global.TotalConfirmed)
+        const percentage = (data.Global.NewConfirmed / data.Global.TotalConfirmed * 100).toFixed(2)
 
-          setCountries(data.Countries.sort((a,b) => b.TotalConfirmed - a.TotalConfirmed))
+        setCountries(data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed))
 
 
-          setPercentageIncrease(percentage)
+        setPercentageIncrease(percentage)
 
-          if(percentage > 0){
-            setPercentageOperator('+')
-          }else{
-            setPercentageOperator('-')
-          }
+        if (percentage > 0) {
+          setPercentageOperator('+')
+        } else {
+          setPercentageOperator('-')
+        }
 
-          console.log(countries)
-          
+        console.log(countries)
+
 
       })
       .catch(err => {
-          console.log(`There was an error ${err}`)
+        console.log(`There was an error ${err}`)
       })
 
 
@@ -65,58 +66,51 @@ export const TotalConfirmed = () => {
 
 
 
-  return(
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
+  return (
+    <div>
+      <Grid container spacing={2}>
 
-        <Grid container spacing={2}> 
-
-          <Grid item>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Worldwide Confirmed Cases
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {totalConfirmed}
-            </Typography>
-          </Grid>
-
-          <Grid item>
-            <Typography>
-              {percentageOperator}{percentageIncrease}%
-            </Typography>
-            <Typography>
-              from yesterday
-            </Typography>
-          </Grid>
-
+        <Grid item>
+          <Typography variant="h2" component="h2">
+            {totalConfirmed}
+          </Typography>
         </Grid>
 
-        <Grid container >
-          <Grid item xl={12}>
-            
-            
-            <ul style={countriesStyle}>
-              {countries ? countries.map((c, index) => 
-                <li key={index}>
-                  <Grid container spacing={2}>
-                    <Grid item xl={5}>
-                      {c.TotalConfirmed}
+        <Grid item>
+          <Typography>
+            {percentageOperator}{percentageIncrease}% from yesterday
+  </Typography>
+        </Grid>
 
-                    </Grid>
-                    <Grid item xl={5}>
-                      {c.Country}
+      </Grid>
 
-                    </Grid>
+      <Grid container >
+        <Grid item xl={12}>
+
+
+          <ul style={countriesStyle}>
+            {countries ? countries.map((c, index) =>
+              <li key={index}>
+                <Grid container spacing={2}>
+                  <Grid item xl={5}>
+                    {c.TotalConfirmed}
+
                   </Grid>
-                </li>) : <Loading/>}
-            </ul>
-            
-          </Grid>
+                  <Grid item xl={5}>
+                    {c.Country}
+
+                  </Grid>
+                </Grid>
+              </li>) : <Loading />}
+          </ul>
+
         </Grid>
-      </CardContent>
-    </Card>
+      </Grid>
+
+    </div>
+
   )
 
 }
 
- 
+
