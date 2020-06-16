@@ -3,15 +3,16 @@ import mapboxgl from "mapbox-gl";
 import useSWR from "swr";
 import lookup from "country-code-lookup";
 import "../css/map.scss";
-// Need mapbox css for tooltips later in the tutorial
 import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken =
     "pk.eyJ1IjoidHJib3QiLCJhIjoiY2s3NmFscm1xMTV0MDNmcXFyOWp1dGhieSJ9.tR2IMHDqBPOf_AeGjHOKFA";
 
-
+//COVID-19/MapBox object component
 export const CovidMap = () => {
-    const mapboxElRef = useRef(null); // DOM element to render map
+
+    //DOM element to render map
+    const mapboxElRef = useRef(null);
 
     const fetcher = url =>
         fetch(url)
@@ -36,11 +37,13 @@ export const CovidMap = () => {
                 }))
             );
 
+    //useSWR method formats JSON data into an object that the map uses.
     const { data } = useSWR("https://corona.lmao.ninja/v2/jhucsse", fetcher);
 
-    // Initialize our map
+    //Initialize map
     useEffect(() => {
         if (data) {
+            //Includes basic settings for the map like initial location and zoom level
             const map = new mapboxgl.Map({
                 container: mapboxElRef.current,
                 style: "mapbox://styles/notalemesa/ck8dqwdum09ju1ioj65e3ql3k",
@@ -48,11 +51,11 @@ export const CovidMap = () => {
                 zoom: 1.5
             });
 
-            // Add navigation controls to the top right of the canvas
+            //Add navigation controls to the top right of the canvas
             map.addControl(new mapboxgl.NavigationControl());
 
             map.once("load", function () {
-                // Add our SOURCE
+                //Add source
                 map.addSource("points", {
                     type: "geojson",
                     data: {
@@ -61,7 +64,7 @@ export const CovidMap = () => {
                     }
                 });
 
-                // Add our layer
+                // Add layer of circles that represent COVID prevalence
                 map.addLayer({
                     id: "circles",
                     source: "points", // this should be the id of source
@@ -123,6 +126,7 @@ export const CovidMap = () => {
 
                 let lastId;
 
+                //Functionality for hovering the mouse over specific circles for more data
                 map.on("mousemove", "circles", e => {
                     const id = e.features[0].properties.id;
 

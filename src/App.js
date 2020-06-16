@@ -1,15 +1,16 @@
+//Import dependencies
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Paper, Card, CardContent } from '@material-ui/core';
 import { TotalConfirmed } from './components/TotalConfirmed'
-import { CumulativeDeaths } from './components/CumulativeDeaths'
 import { LocalCases } from './components/LocalCases'
+import { LocalRecoveries } from './components/LocalRecoveries'
 import { CaseBreakdown } from './components/CaseStatusBreakdown'
 import { CovidMap } from './components/CovidMap'
 import { DashBar } from './components/AppBar'
 
+
+//Styling Objects
 const cardStyle = {
   width: '90%',
   margin: 'auto',
@@ -20,9 +21,11 @@ const sectionHeadingStyle = {
   marginBottom: '40px'
 }
 
+//App Render
 function App() {
   return (
     <div className="App">
+
       <DashBar />
 
       <Card style={cardStyle}>
@@ -56,40 +59,6 @@ function App() {
           </Grid>
         </CardContent>
       </Card>
-
-
-
-
-      {/* <Grid container spacing={4}>
-
-        <Grid item lg={3} sm={6} xl={6} xs={12}>
-          <LocalCasesAndRecoveries />
-        </Grid>
-
-        <Grid item lg={3} sm={6} xl={6} xs={12}>
-          <CumulativeDeaths />
-        </Grid>
-      </Grid>
-
-      <Grid container>
-        <Grid item xl={6}>
-          <CaseBreakdown></CaseBreakdown>
-        </Grid>
-
-        <Grid item xl={6}>
-          <TotalConfirmed />
-        </Grid>
-
-      </Grid>
-
-      <Grid container xl={12}>
-        <Grid item>
-
-        </Grid>
-
-      </Grid> */}
-
-
 
     </div>
   );

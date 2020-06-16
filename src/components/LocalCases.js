@@ -30,9 +30,29 @@ const defaultOptions = {
 
 }
 
+
+
 const defaultData = {
   labels: ["one", 'Two', "three", "four", "five", 'six'],
   datasets: [
+    {
+      label: 'Cases',
+      fill: false,
+      backgroundColor: 'blue',
+      borderColor: 'blue',
+      pointBorderColor: 'blue',
+      pointRadius: 1,
+      data: [10, 5, 6, 12, 3, 4,]
+    },
+    {
+      label: 'Cases',
+      fill: false,
+      backgroundColor: 'blue',
+      borderColor: 'blue',
+      pointBorderColor: 'blue',
+      pointRadius: 1,
+      data: [10, 5, 6, 12, 3, 4,]
+    },
     {
       label: 'Cases',
       fill: false,
@@ -47,28 +67,41 @@ const defaultData = {
 
 
 export const LocalCases = () => {
+  const deepClone = (o) => JSON.parse(JSON.stringify(o))
+
   const classes = useStyles();
-  const [lineData, setLineData] = useState(defaultData)
+  const [lineData, setLineData] = useState(deepClone(defaultData))
   const [totalConfirmed, setTotalConfirmed] = useState(0)
   const [chartOptions, setChartOptions] = useState(defaultOptions)
 
+
+
   useEffect(() => {
     console.log("This component rendered.")
-    fetch('https://api.covid19api.com/country/south-africa/status/confirmed')
+    fetch('https://api.covid19api.com/live/country/south-africa/status/confirmed')
       .then(response => {
         return response.json()
       })
       .then(data => {
-        const dataset = {
+        const confirmedDataset = {
           ...defaultData.datasets[0],
-          data: data.map(d => d.Cases)
+          data: data.map(d => d.Confirmed)
+        }
+        const recoveredDataset = {
+          ...defaultData.datasets[1],
+          data: data.map(d => d.Recovered)
+        }
+        const deathsDataset = {
+          ...defaultData.datasets[2],
+          data: data.map(d => d.Deaths)
         }
         const newData = {
-          ...defaultData,
           labels: data.map(d => d.Date.slice(0, -10)),
-          datasets: [dataset]
+          datasets: [confirmedDataset, recoveredDataset, deathsDataset]
         }
+        console.log(newData)
         setLineData(newData)
+        console.log(lineData)
         setTotalConfirmed(data[data.length - 1].Cases)
 
       })
