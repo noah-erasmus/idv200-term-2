@@ -5,7 +5,9 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Paper, Card, CardContent } from '@material-ui/core';
 import { TotalConfirmed } from './components/TotalConfirmed'
 import { CumulativeDeaths } from './components/CumulativeDeaths'
-import { LocalCases } from './components/LocalCases'
+import { LocalActive } from './components/LocalActive'
+import { LocalRecovered } from './components/LocalRecovered'
+import { LocalDeaths } from './components/LocalDeaths'
 import { CaseBreakdown } from './components/CaseStatusBreakdown'
 import { CovidMap } from './components/CovidMap'
 import { DashBar } from './components/AppBar'
@@ -48,7 +50,9 @@ function App() {
           </Typography>
           <Grid container>
             <Grid item lg={6}>
-              <LocalCases></LocalCases>
+              <LocalActive></LocalActive>
+              <LocalRecovered></LocalRecovered>
+              <LocalDeaths></LocalDeaths>
             </Grid>
             <Grid item lg={6}>
               <CaseBreakdown></CaseBreakdown>

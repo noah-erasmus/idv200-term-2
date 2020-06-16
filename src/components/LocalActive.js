@@ -46,7 +46,7 @@ const defaultData = {
 }
 
 
-export const LocalCases = () => {
+export const LocalActive = () => {
   const classes = useStyles();
   const [lineData, setLineData] = useState(defaultData)
   const [totalConfirmed, setTotalConfirmed] = useState(0)
@@ -54,14 +54,14 @@ export const LocalCases = () => {
 
   useEffect(() => {
     console.log("This component rendered.")
-    fetch('https://api.covid19api.com/country/south-africa/status/confirmed')
+    fetch('https://api.covid19api.com/live/country/south-africa/status/confirmed')
       .then(response => {
         return response.json()
       })
       .then(data => {
         const dataset = {
           ...defaultData.datasets[0],
-          data: data.map(d => d.Cases)
+          data: data.map(d => d.Confirmed)
         }
         const newData = {
           ...defaultData,
@@ -85,7 +85,7 @@ export const LocalCases = () => {
 
       <Grid container direction='row'>
         <Grid item lg={2}>
-          <Typography>Confirmed Cases</Typography>
+          <Typography>Active Cases</Typography>
           <Typography>{totalConfirmed}</Typography>
         </Grid>
         <Grid item xl={9}>
